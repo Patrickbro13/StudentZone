@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+import math 
 from django.views.generic import (
     ListView,
     DetailView,
@@ -9,6 +10,8 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Post
+from django.forms.forms import Form
+from django.contrib import messages
 
 
 def home(request):
@@ -43,7 +46,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title','prod_img','content']
+    fields = ['title', 'price', 'prod_img', 'content', 'category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -52,7 +55,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title','prod_img', 'content']
+    fields = ['title', 'price', 'prod_img', 'content', 'category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -78,3 +81,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+def temp(request):
+    allPosts = []
+    catprods = Post.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Post.objects.filter(category=cat)
+        n = len(prod)
+        nSlides = n // 4 + math.ceil((n / 4) - (n // 4))
+        allPosts.append([prod, range(1, nSlides), nSlides])
+    params = {'allPosts':allPosts}
+    return render(request, 'blog/temp.html', params)
