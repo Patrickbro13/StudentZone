@@ -1,21 +1,23 @@
 {% extends "blog/base.html" %}
 {% block content %}
-  <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+  <div class="container">
+  <article class="media content-section" style="height: 90vh;">
+    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" style="height: 17vh; width: 17vh">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+        <a class="mr-2" href="{% url 'user-posts' object.author.username %}" style="font-size: 3rem;">{{ object.author }}</a>
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
         {% if object.author == user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-lg mt-3 mb-3" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-lg mt-3 mb-3" href="{% url 'post-delete' object.id %}">Delete</a>
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ object.title }}</h2>
-      <img src="{{object.prod_img.url}}" alt="">
-      <p class="article-content">{{ object.content }}</p>
+      <h2 style="font-size: 2rem; padding-bottom: 15px;" class="article-title">Title : {{ object.title }}</h2>
+      <p style="font-size: 1.5rem; padding-bottom: 15px;" class="article-content">Description : {{ object.content }}</p>
+      <img src="{{object.prod_img.url}}" alt="" style="height: 55vh; width: 55vh">
     </div>
   </article>
+  </div>
 {% endblock content %}

@@ -92,6 +92,7 @@ padding-right: 0;
     </div>
     <!--Slideshow starts here -->
     {% for product,range,nslides in allPosts %}
+    <br><br>
     <h5 class="my-4" style="text-align:center; font-size: 45px; font-family: Arial, Helvetica, sans-serif;"> Recommended Items in {{product.0.category}}</h5>
     <div class="row">
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
@@ -107,13 +108,13 @@ padding-right: 0;
                     <div class="col-xs-3 col-sm-3 col-md-3">
                                 <a href="{% url 'post-detail' i.id %}" class="custom-card" style="text-decoration : none;" >
 
-                        <div class="card align-items-center pt-4 shadow-lg" style="width: 18rem;">
+                        <div class="card align-items-center pt-4 shadow-lg" style="width: 18rem; border-radius: 15px;">
                             <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h2 class="card-title" style="font-size: 50px;" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
-                                <h6 class="card-title" style="font-size: 20px;">Price: <span class="badge badge-pill badge-success" id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                                <h2 class="card-title" style="font-size: 1.5rem;" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
+                                <h6 class="card-title" style="font-size: 1rem;">Price: <span class="badge badge-pill badge-success" id="pricepr{{i.id}}">{{i.price}}</span></h6>
                                 {% comment %} <span class="">Success</span> {% endcomment %}
-                                <p class="card-text">{{i.content|slice:"0:53"}}...</p>
+                                <p class="card-text">{{i.content|slice:"0:25"}}...</p>
                                 
 
                             </div>
@@ -127,6 +128,7 @@ padding-right: 0;
                     {% endfor %}
                 </div>
             </div>
+            
         </div>
         <!-- left and right controls for the slide -->
         <a class="carousel-control-prev"  href="#demo{{forloop.counter}}" data-slide="prev">
