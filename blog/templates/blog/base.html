@@ -25,6 +25,8 @@
   {% endif %}
   <link rel="shortcut icon" href="../media/logo.jpg" />
 
+  <script src="https://kit.fontawesome.com/0493cbe504.js" crossorigin="anonymous"></script>
+
   <style>
     {% block css %}
     {% endblock %}
@@ -46,6 +48,7 @@
           <div class="navbar-nav mr-auto">
             <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
             <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+            <a class="nav-item nav-link" href="{% url 'bookmark-post' %}">Bookmark</a>
           </div>
           <!-- Navbar Right Side -->
           <form action="{% url 'search-result' %}" method="GET">
@@ -58,7 +61,7 @@
           <div class="navbar-nav">
             {% if user.is_authenticated %}
             <a class="nav-item nav-link" href="{% url 'post-create' %}">Wanna Sell?</a>
-            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Hello,{{user.username}}</a>
             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
@@ -87,7 +90,7 @@
     </div>
   </main>
 
-  <footer class="text-gray-600 body-font">
+  <footer class="text-gray-600 body-font" style="position: fixed;bottom: 0;width: 100%;">
   <div class="bg-gray-100">
     <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
       <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
@@ -138,6 +141,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

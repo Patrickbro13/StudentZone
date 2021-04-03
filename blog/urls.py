@@ -20,4 +20,6 @@ urlpatterns = [
     path('about/', views.about, name='blog-about'),
     path('temp/', views.temp, name='temp'),
     path('post/search/', SearchResultView.as_view(), name='search-result'),
+    path('post-bookmark/<int:pk>/', views.Bookmark, name='post-bookmark'),
+    path('post/bookmark/', views.BookmarkView.as_view(), name='bookmark-post'),
 ]

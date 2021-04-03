@@ -7,6 +7,21 @@
       <div class="article-metadata">
         <a class="mr-2" href="{% url 'user-posts' object.author.username %}" style="font-size: 3rem;">{{ object.author }}</a>
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if user.is_authenticated %}
+              <form action="{% url 'post-bookmark' object.id %}" method="POST">
+                {% csrf_token %}
+                {% if post_is_bookmarked%}
+                <button type="submit" name="post_id" value="{{object.id}}" class="btn btn-lg" style="float: right;"><i
+                    class="fas fa-bookmark fa-2x" style="color: red;" aria-hidden="true"></i></button>
+                {% else %}
+                <button type="submit" name="post_id" value="{{object.id}}" class="btn btn-lg" style="float: right;"><i
+                    class="far fa-bookmark fa-2x" style="color: red;" aria-hidden="true"></i></button>
+                {% endif %}
+              </form>
+              {% else %}
+              <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to Bookmark this
+                article!</a><br>
+                  {% endif %}
         {% if object.author == user %}
           <div>
             <a class="btn btn-secondary btn-lg mt-3 mb-3" href="{% url 'post-update' object.id %}">Update</a>

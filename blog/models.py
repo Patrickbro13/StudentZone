@@ -26,6 +26,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(
         max_length=30, choices=Category_choices, default='Miscellenous')
+    
+    bookmark = models.ManyToManyField(User, related_name='bookmark')
 
     def __str__(self):
         return self.title
@@ -41,3 +43,4 @@ class Post(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.prod_img.path)
+
