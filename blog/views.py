@@ -94,3 +94,18 @@ def temp(request):
         allPosts.append([prod, range(1, nSlides), nSlides])
     params = {'allPosts':allPosts}
     return render(request, 'blog/temp.html', params)
+
+
+class SearchResultView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'blog/search_result.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query))
+        return posts
