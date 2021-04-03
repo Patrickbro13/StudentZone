@@ -51,10 +51,26 @@ padding-right: 0;
 {% block content %}
 {% load static %}
 
-<div class="container">
+<div class="container-fluid px-0">
+    <div class="container-fluid px-0 mx-0">
+        {% comment %} <img src="{% static 'blog/intro.jpeg'%}" class="mx-0 my-0" alt="Intro-Image"> {% endcomment %}
+        <div class="jumbotron " style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%),url({%static 'blog/intro.jpeg'%}); border-radius: 0; margin-bottom: 0px; ">
+            <div class="container py-0 mb-0">
+				<div style="text-align:center;">
+                    <h1 class="mb-2" style="color: white; font-size: 80px;"> StudentZone </h1>
+                    <hr style="width: 100%;  border: 1px solid white;text-align:center;"/>
+                    <p  style="color: #FFF; font-size: 20px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos repudiandae omnis ullam error voluptate id consequatur consequuntur illum voluptatum magnam minima, iure deleniti voluptas? Modi, eaque. Nostrum quibusdam laboriosam fugit debitis id nemo assumenda tempore officiis vel nobis cupiditate vitae eos blanditiis, sunt nihil voluptatum odio alias autem ratione earum dicta dolorum, quae, corrupti impedit. Eveniet nesciunt cumque dolores est. Delectus molestias consequatur sint ut culpa nesciunt officiis necessitatibus aliquid officia, inventore mollitia laboriosam dolor debitis itaque, consequuntur amet accusamus? Pariatur, facere quis dolores officia sint blanditiis provident sit labore eius sequi vitae voluptates et odit perferendis, natus autem.</p>
+                    <div class="line"></div>
+                    <p class="lead px-3">
+                        <br>
+                    </p>
+                </div>
+			</div>
+  		</div>
+    </div>
     <!--Slideshow starts here -->
     {% for product,range,nslides in allPosts %}
-    <h5 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
+    <h5 class="my-4"> Recommended Items in {{product.0.category}}</h5>
     <div class="row">
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
             <ul class="carousel-indicators">
@@ -67,7 +83,7 @@ padding-right: 0;
                 <div class="carousel-item active">
                     {% for i in product %}
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <div class="card align-items-center" style="width: 18rem;">
+                        <div class="card align-items-center pt-4 shadow-lg" style="width: 18rem;">
                             <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h2 class="card-title" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
