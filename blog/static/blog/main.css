@@ -114,3 +114,12 @@ a.article-title:hover {
   border-radius: 0;
   border: 0;
 }
+
+a.custom-card:hover {
+  color: inherit;
+  font-weight: 50px;
+}
+
+a.custom-card:hover{
+  font-weight: 150px;
+}
