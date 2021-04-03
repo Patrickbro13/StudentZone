@@ -5,13 +5,13 @@ from django.urls import reverse
 from PIL import Image
 
 Category_choices = (
-    ("books", "books"),
-    ("notes", "notes"),
-    ("lab_equipments", "lab_equipments"),
-    ("electronic_equipments", "electronic_equipments"),
-    ("sports_equipments", "sports_equipments"),
-    ("appliances", "appliances"),
-    ("miscellenous", "miscellenous")
+    ("Books", "Books"),
+    ("Reference Notes", "Reference Notes"),
+    ("Lab Equipments", "Lab Equipments"),
+    ("Electronic Equipments", "Electronic Equipments"),
+    ("Sports Equipments", "Sports Equipments"),
+    ("Appliances", "Appliances"),
+    ("Miscellenous", "Miscellenous")
 )
 
 
@@ -25,7 +25,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(
-        max_length=30, choices=Category_choices, default='miscellenous')
+        max_length=30, choices=Category_choices, default='Miscellenous')
 
     def __str__(self):
         return self.title

@@ -29,16 +29,38 @@ bottom: -40px;
 background-color: #7270fc;
 }
 
-body .carousel-control-prev-icon,
-body .carousel-control-next-icon {
-background-color: blue;
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 50px;
+  width: 50px;
+  outline: black;
+  background-size: 100%, 100%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-control-prev{
+    padding-left:0 ;
+    margin-left:0;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
 top: auto;
 bottom: auto;
-padding-top: 222px;
+padding-top: 155px;
 }
 
 body .no-padding {
@@ -70,7 +92,7 @@ padding-right: 0;
     </div>
     <!--Slideshow starts here -->
     {% for product,range,nslides in allPosts %}
-    <h5 class="my-4"> Recommended Items in {{product.0.category}}</h5>
+    <h5 class="my-4" style="text-align:center; font-size: 45px; font-family: Arial, Helvetica, sans-serif;"> Recommended Items in {{product.0.category}}</h5>
     <div class="row">
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
             <ul class="carousel-indicators">
@@ -88,9 +110,11 @@ padding-right: 0;
                         <div class="card align-items-center pt-4 shadow-lg" style="width: 18rem;">
                             <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h2 class="card-title" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
+                                <h2 class="card-title" style="font-size: 50px;" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
+                                <h6 class="card-title" style="font-size: 20px;">Price: <span class="badge badge-pill badge-success" id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                                {% comment %} <span class="">Success</span> {% endcomment %}
                                 <p class="card-text">{{i.content|slice:"0:53"}}...</p>
-                                <h6 class="card-title">Price: <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                                
 
                             </div>
                         </div>
@@ -105,7 +129,7 @@ padding-right: 0;
             </div>
         </div>
         <!-- left and right controls for the slide -->
-        <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+        <a class="carousel-control-prev"  href="#demo{{forloop.counter}}" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </a>
         <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
