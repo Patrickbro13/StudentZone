@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 import math 
+from django.db.models import Count, F, Q
 from django.views.generic import (
     ListView,
     DetailView,
@@ -15,10 +16,20 @@ from django.contrib import messages
 
 
 def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'blog/home.html', context)
+    allPosts = []
+    catprods = Post.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Post.objects.filter(category=cat)
+        n = len(prod)
+        nSlides = n // 4 + math.ceil((n / 4) - (n // 4))
+        allPosts.append([prod, range(1, nSlides), nSlides])
+    params = {'allPosts':allPosts}
+    return render(request, 'blog/home.html', params)
+    #context = {
+     #   'posts': Post.objects.all()
+    #}
+    #return render(request, 'blog/home.html', context)
 
 
 class PostListView(ListView):
@@ -99,7 +110,7 @@ def temp(request):
 class SearchResultView(ListView):
     model = Post
     context_object_name = 'posts'
-    template_name = 'blog/search_result.html'
+    template_name = 'blog/search_results.html'
     paginate_by = 5
 
     def get_queryset(self):

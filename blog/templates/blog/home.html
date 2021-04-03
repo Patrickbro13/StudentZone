@@ -1,41 +1,99 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends 'blog/base.html' %}
+
+{% block css %}
+.col-md-3 {
+display: inline-block;
+margin-left: -4px;
+}
+
+.carousel-indicators .active {
+background-color: blue;
+}
+
+.col-md-3 img { 
+width: 170px;
+height: 200px;
+}
+
+body .carousel-indicator li {
+background-color: blue;
+}
+
+body .carousel-indicators {
+bottom: -40px;
+}
+
+.carousel-indicators li {
+
+
+background-color: #7270fc;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon {
+background-color: blue;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+top: auto;
+bottom: auto;
+padding-top: 222px;
+}
+
+body .no-padding {
+padding-left: 0,
+padding-right: 0;
+}
+
+{% endblock %}
+
 {% block content %}
-<!-- <div id="intro-image"></div> -->
+{% load static %}
 
-{% for post in posts %}
-<article class="media content-section">
-  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+<div class="container">
+    <!--Slideshow starts here -->
+    {% for product,range,nslides in allPosts %}
+    <h5 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
+    <div class="row">
+        <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in range %}
+                <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
+                {% endfor %}
+            </ul>
+            <div class="container carousel-inner no-padding">
+                <div class="carousel-item active">
+                    {% for i in product %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card align-items-center" style="width: 18rem;">
+                            <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h2 class="card-title" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
+                                <p class="card-text">{{i.content|slice:"0:53"}}...</p>
+                                <h6 class="card-title">Price: <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                                <a href="{% url 'post-detail' i.id %}"><button id="qv{{i.id}}"
+                                        class="btn btn-primary cart">QuickView</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div>
+                <div class="carousel-item">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
     </div>
-    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-    <p class="article-content">{{ post.content }}</p>
-    <img src="{{post.prod_img.url}}" alt="">
-  </div>
-</article>
-{% endfor %}
-{% if is_paginated %}
-
-{% if page_obj.has_previous %}
-<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-{% endif %}
-
-{% for num in page_obj.paginator.page_range %}
-{% if page_obj.number == num %}
-<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a class="btn btn-outline-info mb-4"
-  href="?page={{ num }}">{{ num }}</a>
-  {% endif %}
-  {% endfor %}
-
-  {% if page_obj.has_next %}
-  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-  {% endif %}
-
-  {% endif %}
-  {% endblock content %}
+    {% endfor %}
+</div>
+{% endblock %}

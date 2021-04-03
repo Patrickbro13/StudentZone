@@ -17,7 +17,7 @@
 
 
   <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   {% if title %}
   <title>StudentZone - {{ title }}</title>
   {% else %}
@@ -47,11 +47,11 @@
           </div>
           <!-- Navbar Right Side -->
           <form action="{% url 'search-result' %}" method="GET">
-            <div style=" display: flex;">
-                  <input class="form-control" style="display: inline;" type="text" name="q" placeholder="Search">
-              <button type="submit" class="btn btn-success-outline" ><i class="fa fa-search " style="font-size:24px; color:white;"></i> </i></button>
-              </div>
-                </form>
+          <div style=" display: flex;">
+                <input class="form-control" style="display: inline;" type="text" name="q" placeholder="Search">
+            <button type="submit" class="btn btn-success-outline" ><i class="fa fa-search " style="font-size:24px; color:white;"></i> </i></button>
+            </div>
+              </form>
           <div class="navbar-nav">
             {% if user.is_authenticated %}
             <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
