@@ -71,7 +71,7 @@ padding-right: 0;
                         <div class="card align-items-center" style="width: 18rem;">
                             <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title" id="namepr{{i.id}}">{{i.title}}</h5>
+                                <h2 class="card-title" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
                                 <p class="card-text">{{i.content|slice:"0:53"}}...</p>
                                 <h6 class="card-title">Price: <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
                                 <a href="{% url 'post-detail' i.id %}"><button id="qv{{i.id}}"
