@@ -54,3 +54,12 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class PostComment(models.Model):
+	post_connected = models.ForeignKey(Post, related_name = 'comments', on_delete = models.CASCADE)
+	author = models.ForeignKey(User, on_delete = models.CASCADE)
+	content = models.TextField()
+	date_posted = models.DateTimeField(default=timezone.now)
+
+	def _str_(self):
+		return str(self.author) + ', ' + self.post_connected.title[:40]

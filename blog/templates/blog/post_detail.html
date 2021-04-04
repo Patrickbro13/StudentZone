@@ -1,7 +1,11 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %} 
+
+
+
 {% block content %}
   <div class="container">
-  <article class="media content-section" style="height: 90vh;">
+  <article class="media content-section" style="height: 100vh;">
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" style="height: 17vh; width: 17vh">
     <div class="media-body">
       <div class="article-metadata">
@@ -34,5 +38,46 @@
       <img src="{{object.prod_img.url}}" alt="" style="height: 55vh; width: 55vh">
     </div>
   </article>
+
+  <h4 style="margin-bottom:1vh;">Leave your comment!</h4>
+			<div id="comments_section">
+
+			  {% if user.is_authenticated %}
+			  <form method="POST">
+			    {% csrf_token %}
+			    <div class="form-group">
+			      {{ comment_form|crispy }}
+			      <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+			    </div>
+			  </form>
+			  {% else %}
+			  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+			  {% endif %}
+
+			  {% if content %}
+        <h1> testingif </h1>
+			  <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+			  <hr>
+			  <ul>
+			    {% for comment in content %}
+          <h1> testing </h1>
+			    <li>           
+			     <div>
+			        <span>
+			          <strong class="text-info">{{ comment.author }} </strong>
+			          <small class="text-muted">{{ comment.date_posted }}</small>
+			        </span>
+			        <p>
+			          {{ comment.content|safe }}
+			        </p>
+			      </div>
+			    </li>
+			    {% endfor %}
+			  </ul>
+			  {% else %}
+			    <strong class="text-secondary">No comments yet...</strong>
+			  {% endif %}
+
+			</div>
   </div>
 {% endblock content %}

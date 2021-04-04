@@ -15,7 +15,8 @@ from django.forms.forms import Form
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from blog.models import Contact
+from blog.models import Contact, PostComment
+from blog.forms import NewCommentForm
 
 
 def home(request):
@@ -173,4 +174,13 @@ class PostDetailView(DetailView):
         if post_connected.bookmark.filter(id=self.request.user.id).exists():
             bookmarked = True
         data['post_is_bookmarked'] = bookmarked
+        comments_connected = PostComment.objects.filter(post_connected = self.get_object()).order_by('-date_posted')
+        data['content'] = comments_connected
+        if self.request.user.is_authenticated:
+            data['comment_form'] = NewCommentForm(instance=self.request.user)
         return data
+    
+    def post(self, request, *args, **kwargs):
+        new_comment = PostComment(content = request.POST.get('content'), author = self.request.user, post_connected = self.get_object())
+        new_comment.save()
+        return self.get(self, request, *args, **kwargs)
