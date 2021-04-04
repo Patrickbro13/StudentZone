@@ -1,21 +1,110 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block css%}
+#id_content{
+  height:50px;
+}
+{% endblock %}
+
 {% block content %}
-  <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+  <div class="container">
+  <article class="media content-section" style="height: 100vh;">
+    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" style="height: 17vh; width: 17vh">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+        <a class="mr-2" href="{% url 'user-posts' object.author.username %}" style="font-size: 3rem;">{{ object.author }}</a>
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if user.is_authenticated %}
+              <form action="{% url 'post-bookmark' object.id %}" method="POST">
+                {% csrf_token %}
+                {% if post_is_bookmarked%}
+                <button type="submit" name="post_id" value="{{object.id}}" class="btn btn-lg" style="float: right;"><i
+                    class="fas fa-bookmark fa-2x" style="color: red;" aria-hidden="true"></i></button>
+                {% else %}
+                <button type="submit" name="post_id" value="{{object.id}}" class="btn btn-lg" style="float: right;"><i
+                    class="far fa-bookmark fa-2x" style="color: red;" aria-hidden="true"></i></button>
+                {% endif %}
+              </form>
+              {% else %}
+              <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to Bookmark this
+                article!</a><br>
+                  {% endif %}
         {% if object.author == user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-lg mt-3 mb-3" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-lg mt-3 mb-3" href="{% url 'post-delete' object.id %}">Delete</a>
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ object.title }}</h2>
-      <img src="{{object.prod_img.url}}" alt="">
-      <p class="article-content">{{ object.content }}</p>
+      <h2 style="font-size: 2rem; padding-bottom: 15px;" class="article-title">Title : {{ object.title }}</h2>
+      <p style="font-size: 1.5rem; padding-bottom: 15px;" class="article-content">Description : {{ object.content }}</p>
+      <img src="{{object.prod_img.url}}" alt="" style="height: 55vh; width: 55vh">
     </div>
   </article>
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Chat <i class="fas fa-comments"></i>
+      </button>
+
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Chat</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+
+            <div id="comments_section">
+              {% if content %}
+              <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+              <hr>
+              <ul>
+                {% for comment in content %}
+                <li>           
+                <div>
+                    <span>
+                      <strong class="text-info">{{ comment.author }} </strong>
+                      <small class="text-muted">{{ comment.date_posted }}</small>
+                    </span>
+                    <p>
+                      {{ comment.content|safe }}
+                    </p>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+                <strong class="text-secondary">No replies yet...</strong>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-10">
+                      {{ comment_form|crispy }}
+                    </div>
+                    <div class="col-1">
+                      <button class="btn btn-info" style="margin-top: 38px;" type="submit"> <i class="fa fa-paper-plane"></i></button>
+                    
+                  </div>
+                  </div>
+                </div>
+              </form>
+              {% else %}
+              <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+              {% endif %}
+
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
 {% endblock content %}
