@@ -15,6 +15,7 @@ from django.forms.forms import Form
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from blog.models import Contact
 
 
 def home(request):
@@ -90,6 +91,29 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+# def contact(request):
+#     return render(request, 'blog/contact.html', {'title': 'About'})
+
+def contact(request):
+    thank = False
+    if request.method=="POST":
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        desc = request.POST.get('desc', '')
+        contact = Contact(name=name, email=email, phone=phone, desc=desc)
+        contact.save()
+        thank = True
+    return render(request, 'blog/contact.html', {'thank': thank})
+# def contact(request):
+#     if request.method=="POST":
+#         name = request.POST.get('name', '')
+#         email = request.POST.get('email', '')
+#         message = request.POST.get('message', '')
+#         contact = Contact(name=name, email=email, message=message)
+#         contact.save()
+#     return render(request, 'blog/contact.html')
 
 
 def temp(request):

@@ -78,7 +78,7 @@ padding-right: 0;
 <div class="container-fluid px-0">
     <div class="container-fluid px-0 mx-0">
         {% comment %} <img src="{% static 'blog/intro.jpeg'%}" class="mx-0 my-0" alt="Intro-Image"> {% endcomment %}
-        <div class="jumbotron jumbotron-fluid" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%),url({%static 'blog/test.jpg'%}); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 0px; height:100%">
+        <div class="jumbotron jumbotron-fluid" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%),url({%static 'blog/introImg.jpg'%}); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 0px; height:100%">
             <div class="container py-0 mb-0">
 				<div style="text-align:center;">
                     <h1 class="mb-2" style="color: white; font-size: 80px;"> StudentZone </h1>
@@ -112,10 +112,10 @@ padding-right: 0;
                             <div class="card align-items-center pt-4 shadow-lg" style="width: 18rem; border-radius: 15px; margin-top:2.2vh;">
                                 <img src='/media/{{i.prod_img}}' class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h2 class="card-title" style="font-size: 1.5rem;" id="namepr{{i.id}}">{{i.title|slice:"0:20"}}...</h2>
+                                    <h2 class="card-title" style="font-size: 1.5rem;" id="namepr{{i.id}}">{{i.title|slice:"0:12"}}...</h2>
                                     <h6 class="card-title" style="font-size: 1rem;">Price: <span class="badge badge-pill badge-success" id="pricepr{{i.id}}">{{i.price}}</span></h6>
                                     {% comment %} <span class="">Success</span> {% endcomment %}
-                                    <p class="card-text">{{i.content|slice:"0:25"}}...</p>
+                                    <p class="card-text">{{i.content|slice:"0:18"}}...</p>
                                     
 
                                 </div>
