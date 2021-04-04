@@ -174,7 +174,7 @@ class PostDetailView(DetailView):
         if post_connected.bookmark.filter(id=self.request.user.id).exists():
             bookmarked = True
         data['post_is_bookmarked'] = bookmarked
-        comments_connected = PostComment.objects.filter(post_connected = self.get_object()).order_by('-date_posted')
+        comments_connected = PostComment.objects.filter(post_connected = self.get_object()).order_by('date_posted')
         data['content'] = comments_connected
         if self.request.user.is_authenticated:
             data['comment_form'] = NewCommentForm(instance=self.request.user)
