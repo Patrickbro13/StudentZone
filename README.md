@@ -29,8 +29,8 @@ This website is a bridge between a community of <b>STUDENTS</b>
 
 ### screenshots
 
-![](/media/img/screenshot2.jpg)
-![](/media/img/screenshot3.jpg)
+![](/media/screenshot2.jpg)
+![](/media/screenshot3.jpg)
 
 ### Contributors
 
