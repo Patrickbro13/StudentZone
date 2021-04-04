@@ -1,6 +1,8 @@
 {% extends 'blog/base.html' %}
 
 {% block css %}
+{% comment %} @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap'); {% endcomment %}
+
 .col-md-3 {
 display: inline-block;
 margin-left: -4px;
@@ -76,12 +78,12 @@ padding-right: 0;
 <div class="container-fluid px-0">
     <div class="container-fluid px-0 mx-0">
         {% comment %} <img src="{% static 'blog/intro.jpeg'%}" class="mx-0 my-0" alt="Intro-Image"> {% endcomment %}
-        <div class="jumbotron " style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%),url({%static 'blog/intro.jpeg'%}); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 0px; height:100%">
+        <div class="jumbotron jumbotron-fluid" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%),url({%static 'blog/test.jpg'%}); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 0px; height:100%">
             <div class="container py-0 mb-0">
 				<div style="text-align:center;">
                     <h1 class="mb-2" style="color: white; font-size: 80px;"> StudentZone </h1>
-                    <hr style="width: 100%;  border: 1px solid white;text-align:center;"/>
-                    <p  style="color: #FFF; font-size: 20px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos repudiandae omnis ullam error voluptate id consequatur consequuntur illum voluptatum magnam minima, iure deleniti voluptas? Modi, eaque. Nostrum quibusdam laboriosam fugit debitis id nemo assumenda tempore officiis vel nobis cupiditate vitae eos blanditiis, sunt nihil voluptatum odio alias autem ratione earum dicta dolorum, quae, corrupti impedit. Eveniet nesciunt cumque dolores est. Delectus molestias consequatur sint ut culpa nesciunt officiis necessitatibus aliquid officia, inventore mollitia laboriosam dolor debitis itaque, consequuntur amet accusamus? Pariatur, facere quis dolores officia sint blanditiis provident sit labore eius sequi vitae voluptates et odit perferendis, natus autem.</p>
+                    {% comment %} <hr style="width: 100%;  border: 1px solid white;text-align:center;"/> {% endcomment %}
+                    <p  style="color: #FFF; font-size: 20px; padding: 0px 10vh 0px 10vh;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos repudiandae omnis ullam error voluptate id consequatur consequuntur illum voluptatum magnam minima, iure deleniti voluptas? Modi, eaque. Nostrum quibusdam laboriosam fugit debitis id nemo assumenda tempore officiis vel nobis cupiditate vitae eos blanditiis, sunt nihil voluptatum odio alias autem ratione earum dicta dolorum, quae, corrupti impedit. Eveniet nesciunt cumque dolores est. Delectus molestias consequatur sint ut culpa nesciunt officiis necessitatibus aliquid officia, inventore mollitia laboriosam dolor debitis itaque, consequuntur amet accusamus? Pariatur, facere quis dolores officia sint blanditiis provident sit labore eius sequi vitae voluptates et odit perferendis, natus autem.</p>
                     <div class="line"></div>
                     <p class="lead px-3">
                         <br>
